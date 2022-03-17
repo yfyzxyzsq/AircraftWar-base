@@ -1,10 +1,14 @@
 package edu.hitsz.application;
 
 
+import edu.hitsz.aircraft.EliteEnemy;
 import edu.hitsz.aircraft.HeroAircraft;
 import edu.hitsz.aircraft.MobEnemy;
 import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.bullet.HeroBullet;
+import edu.hitsz.prop.BloodProp;
+import edu.hitsz.prop.BombProp;
+import edu.hitsz.prop.BulletProp;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -32,6 +36,12 @@ public class ImageManager {
     public static BufferedImage HERO_BULLET_IMAGE;
     public static BufferedImage ENEMY_BULLET_IMAGE;
     public static BufferedImage MOB_ENEMY_IMAGE;
+    //添加精英敌机
+    public static BufferedImage Elite_Enemy_IMAGE;
+    //添加道具
+    public static BufferedImage Blood_Prop_IMAGE;
+    public static BufferedImage Bomb_Prop_IMAGE;
+    public static BufferedImage Bullet_Prop_IMAGE;
 
     static {
         try {
@@ -42,11 +52,27 @@ public class ImageManager {
             MOB_ENEMY_IMAGE = ImageIO.read(new FileInputStream("src/images/mob.png"));
             HERO_BULLET_IMAGE = ImageIO.read(new FileInputStream("src/images/bullet_hero.png"));
             ENEMY_BULLET_IMAGE = ImageIO.read(new FileInputStream("src/images/bullet_enemy.png"));
+            //添加精英敌机
+            Elite_Enemy_IMAGE = ImageIO.read(new FileInputStream("src/images/elite.png"));
+            //添加道具
+            Blood_Prop_IMAGE = ImageIO.read(new FileInputStream("src/images/prop_blood.png"));
+            Bomb_Prop_IMAGE = ImageIO.read(new FileInputStream("src/images/prop_bomb.png"));
+            Bullet_Prop_IMAGE = ImageIO.read(new FileInputStream("src/images/prop_bullet.png"));
+
 
             CLASSNAME_IMAGE_MAP.put(HeroAircraft.class.getName(), HERO_IMAGE);
             CLASSNAME_IMAGE_MAP.put(MobEnemy.class.getName(), MOB_ENEMY_IMAGE);
             CLASSNAME_IMAGE_MAP.put(HeroBullet.class.getName(), HERO_BULLET_IMAGE);
             CLASSNAME_IMAGE_MAP.put(EnemyBullet.class.getName(), ENEMY_BULLET_IMAGE);
+            //添加精英敌机
+            CLASSNAME_IMAGE_MAP.put(EliteEnemy.class.getName(),Elite_Enemy_IMAGE);
+            //添加道具
+            CLASSNAME_IMAGE_MAP.put(BloodProp.class.getName(),Blood_Prop_IMAGE);
+            CLASSNAME_IMAGE_MAP.put(BombProp.class.getName(),Bomb_Prop_IMAGE);
+            CLASSNAME_IMAGE_MAP.put(BulletProp.class.getName(),Bullet_Prop_IMAGE);
+
+
+
 
         } catch (IOException e) {
             e.printStackTrace();
