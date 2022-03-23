@@ -108,7 +108,7 @@ class BloodProp{
     +forward():void
 }
 
-class BombProp{s
+class BombProp{
     +BombProp(int locationX, int locationY, int speedX, int speedY)
     +func():void
     +forward():void
