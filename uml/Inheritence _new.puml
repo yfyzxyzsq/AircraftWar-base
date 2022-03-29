@@ -65,11 +65,41 @@ AbstractProp <|--BloodProp
 AbstractProp <|--BombProp
 AbstractProp <|--BulletProp
 
+abstract class PlaneFactory
+class MobEnemyFactory
+class EliteEnemyFactory
+class BossEnemyFactory
+
+PlaneFactory <|-- MobEnemyFactory
+PlaneFactory <|-- EliteEnemyFactory
+PlaneFactory <|-- BossEnemyFactory
+AbstractAircraft <.. PlaneFactory
+
+MobEnemy <.. MobEnemyFactory : create
+EliteEnemy <.. EliteEnemyFactory : create
+BossEnemy <.. BossEnemyFactory : create
+
+class PropFactory
+class BloodPropFactory
+class BombPropFactory
+class BulletPropFactory
+
+PropFactory <|-- BloodPropFactory
+PropFactory <|-- BombPropFactory
+PropFactory <|-- BulletPropFactory
+
+PropFactory ..> AbstractProp
+BloodPropFactory ..> BloodProp : create
+BombPropFactory ..> BombProp : create
+BulletPropFactory ..> BulletProp : create
+
 class HeroAircraft {
     - shootNum:int
     - power:int
     - direction:int
-    + HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
+    {static} - heroAircraft : HeroAircraft
+    - HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp)
+    {static} + getInstance() : HeroAircraft
     + forward():void
     + shoot():List<BaseBullet>
 }
@@ -118,6 +148,34 @@ class BulletProp{
     +BulletProp(int locationX, int locationY, int speedX, int speedY)
     +func():void
     +forward():void
+}
+
+class PlaneFactory{
+    +createAircraft():AbstractAircraft
+}
+
+class MobEnemyFactory{
+    +createAircraft():AbstractAircraft
+}
+class EliteEnemyFactory{
+    +createAircraft():AbstractAircraft
+}
+class BossEnemyFactory{
+    +createAircraft():AbstractAircraft
+}
+
+class PropFactory{
+    +createAbstractProp():AbstractProp
+}
+
+class BloodPropFactory{
+    +createAbstractProp():AbstractProp
+}
+class BombPropFactory{
+    +createAbstractProp():AbstractProp
+}
+class BulletPropFactory{
+    +createAbstractProp():AbstractProp
 }
 
 @enduml

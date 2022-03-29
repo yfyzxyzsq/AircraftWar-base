@@ -1,12 +1,9 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-interface Plane
-
 class HeroAircraft
-class client
 
-Plane <|.. HeroAircraft
+
 
 
 
@@ -15,7 +12,16 @@ class HeroAircraft {
     -HeroAircraft()
     {static}+getHeroAircraft():HeroAircraft
 }
+note left of HeroAircraft::HeroAircraft
+HeroAircraft的实例字段，一个本类的对象
+end note
 
+note right of HeroAircraft::HeroAircraft()
+私有的构造方法
+end note
 
+note left of HeroAircraft::getHeroAircraft()
+获取HeroAircraft对象的方法
+end note
 
 @enduml

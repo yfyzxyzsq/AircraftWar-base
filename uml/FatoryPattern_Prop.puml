@@ -20,6 +20,8 @@ AbstractProp <|-- BloodProp
 AbstractProp <|-- BombProp
 AbstractProp <|-- BulletProp
 
+
+PropFactory ..> AbstractProp
 BloodPropFactory ..> BloodProp : create
 BombPropFactory ..> BombProp : create
 BulletPropFactory ..> BulletProp : create

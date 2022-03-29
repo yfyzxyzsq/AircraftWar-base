@@ -3,8 +3,6 @@
 
 
 abstract class PlaneFactory
-
-
 class MobEnemyFactory
 class EliteEnemyFactory
 class BossEnemyFactory
@@ -27,6 +25,8 @@ AbstractAircraft <|-- Bossenemy
 MobEnemy <.. MobEnemyFactory : create
 EliteEnemy <.. EliteEnemyFactory : create
 Bossenemy <.. BossEnemyFactory : create
+
+
 
 
 class AbstractAircraft{
