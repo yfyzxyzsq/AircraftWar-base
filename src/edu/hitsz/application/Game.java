@@ -48,6 +48,8 @@ public class Game extends JPanel {
 
     private boolean gameOverFlag = false;
     private int score = 0;
+    //flag与score关联，根据flag添加Boss敌机
+    private int flag = 0;
     private int time = 0;
     /**
      * 周期（ms)
@@ -127,6 +129,8 @@ public class Game extends JPanel {
                 shootAction();
             }
 
+
+
             // 子弹移动
             bulletsMoveAction();
 
@@ -135,6 +139,9 @@ public class Game extends JPanel {
 
             // 撞击检测
             crashCheckAction();
+
+            //添加boss敌机
+            addBossAction();
 
             //添加道具移动
             propsMoveAction();
@@ -184,6 +191,9 @@ public class Game extends JPanel {
             if(enemyAircrafts.get(i) instanceof EliteEnemy){
                 EliteEnemy e = (EliteEnemy) enemyAircrafts.get(i);
                 enemyBullets.addAll(e.shoot());
+            }else if(enemyAircrafts.get(i) instanceof BossEnemy){
+                BossEnemy b = (BossEnemy) enemyAircrafts.get(i);
+                enemyBullets.addAll(b.shoot());
             }
         }
         // 英雄射击
@@ -282,6 +292,7 @@ public class Game extends JPanel {
 
                         }
                         score += 10;
+                        flag += 10;
                     }
                 }
                 // 英雄机 与 敌机 相撞，均损毁
@@ -382,5 +393,18 @@ public class Game extends JPanel {
         g.drawString("LIFE:" + this.heroAircraft.getHp(), x, y);
     }
 
+    /**
+    * Description:判断分数添加Boss敌机
+    * date: 2022/3/30 18:01
+    * @author: fyd
+    */
+    private void addBossAction(){
+        if(flag >= 100){
+            PlaneFactory  planeFactory = new BossEnemyFactory();
+            AbstractAircraft aircraft = planeFactory.createAircraft();
+            enemyAircrafts.add(aircraft);
+            flag = 0;
+        }
+    }
 
 }

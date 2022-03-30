@@ -25,7 +25,10 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
     }
 
     public void decreaseHp(int decrease){
-        hp -= decrease;
+        if(decrease>=0){
+            hp -= decrease;
+        }
+
         if(hp <= 0){
             hp=0;
             vanish();

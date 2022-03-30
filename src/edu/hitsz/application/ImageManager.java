@@ -1,6 +1,7 @@
 package edu.hitsz.application;
 
 
+import edu.hitsz.aircraft.BossEnemy;
 import edu.hitsz.aircraft.EliteEnemy;
 import edu.hitsz.aircraft.HeroAircraft;
 import edu.hitsz.aircraft.MobEnemy;
@@ -38,6 +39,8 @@ public class ImageManager {
     public static BufferedImage MOB_ENEMY_IMAGE;
     //添加精英敌机
     public static BufferedImage Elite_Enemy_IMAGE;
+    //添加Boss敌机
+    public static BufferedImage Boss_Enemy_IMAGE;
     //添加道具
     public static BufferedImage Blood_Prop_IMAGE;
     public static BufferedImage Bomb_Prop_IMAGE;
@@ -54,6 +57,8 @@ public class ImageManager {
             ENEMY_BULLET_IMAGE = ImageIO.read(new FileInputStream("src/images/bullet_enemy.png"));
             //添加精英敌机
             Elite_Enemy_IMAGE = ImageIO.read(new FileInputStream("src/images/elite.png"));
+            //添加Boss敌机
+            Boss_Enemy_IMAGE = ImageIO.read(new FileInputStream("src/images/boss.png"));
             //添加道具
             Blood_Prop_IMAGE = ImageIO.read(new FileInputStream("src/images/prop_blood.png"));
             Bomb_Prop_IMAGE = ImageIO.read(new FileInputStream("src/images/prop_bomb.png"));
@@ -66,6 +71,8 @@ public class ImageManager {
             CLASSNAME_IMAGE_MAP.put(EnemyBullet.class.getName(), ENEMY_BULLET_IMAGE);
             //添加精英敌机
             CLASSNAME_IMAGE_MAP.put(EliteEnemy.class.getName(),Elite_Enemy_IMAGE);
+            //添加Boss敌机
+            CLASSNAME_IMAGE_MAP.put(BossEnemy.class.getName(),Boss_Enemy_IMAGE);
             //添加道具
             CLASSNAME_IMAGE_MAP.put(BloodProp.class.getName(),Blood_Prop_IMAGE);
             CLASSNAME_IMAGE_MAP.put(BombProp.class.getName(),Bomb_Prop_IMAGE);

@@ -25,10 +25,29 @@ public class HeroAircraft extends AbstractAircraft {
     }
     /**攻击方式 */
 
+    public int getShootNum() {
+        return shootNum;
+    }
+
+    public void setShootNum(int shootNum) {
+        this.shootNum = shootNum;
+    }
+
     /**
      * 子弹一次发射数量
      */
     private int shootNum = 1;
+
+    public int getMaxShootNum() {
+        return maxShootNum;
+    }
+
+    public void setMaxShootNum(int maxShootNum) {
+        this.maxShootNum = maxShootNum;
+    }
+
+    //一次可最多发射子弹数量
+    private int maxShootNum = 3;
 
     /**
      * 子弹伤害
