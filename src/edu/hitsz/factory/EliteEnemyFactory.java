@@ -5,7 +5,7 @@ import edu.hitsz.aircraft.EliteEnemy;
 import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
 
-public class EliteEnemyFactory extends PlaneFactory{
+public class EliteEnemyFactory extends AbstractPlaneFactory {
     @Override
     public AbstractAircraft createAircraft() {
         EliteEnemy eliteEnemy = new EliteEnemy(

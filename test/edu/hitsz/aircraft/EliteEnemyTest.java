@@ -31,7 +31,7 @@ class EliteEnemyTest extends AbstractFlyingObject {
 
     @Test
     void testNotValid() {
-        HeroAircraft heroAircraft = HeroAircraft.GetInstance();
+        HeroAircraft heroAircraft = HeroAircraft.getInstance();
         if(heroAircraft.crash(eliteEnemy)){
             eliteEnemy.vanish();
         }

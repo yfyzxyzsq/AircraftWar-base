@@ -5,7 +5,7 @@ import edu.hitsz.aircraft.MobEnemy;
 import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
 
-public class MobEnemyFactory extends PlaneFactory{
+public class MobEnemyFactory extends AbstractPlaneFactory {
 
     @Override
     public AbstractAircraft createAircraft() {

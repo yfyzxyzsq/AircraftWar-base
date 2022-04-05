@@ -28,7 +28,7 @@ class BloodPropTest extends AbstractFlyingObject {
 
     @Test
     void func() {
-        HeroAircraft heroAircraft = HeroAircraft.GetInstance();
+        HeroAircraft heroAircraft = HeroAircraft.getInstance();
         heroAircraft.decreaseHp(20);
         heroAircraft.crash(bloodProp);
         bloodProp.func();

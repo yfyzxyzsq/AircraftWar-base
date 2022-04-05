@@ -18,7 +18,7 @@ public class BulletProp extends AbstractProp{
     public void func() {
         super.func();
         System.out.println("FireSupply avtive!");
-        HeroAircraft heroAircraft = HeroAircraft.GetInstance();
+        HeroAircraft heroAircraft = HeroAircraft.getInstance();
         int maxShootNum = heroAircraft.getMaxShootNum();
         int shootNum = heroAircraft.getShootNum();
         if(shootNum < maxShootNum){

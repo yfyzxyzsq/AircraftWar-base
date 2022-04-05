@@ -17,7 +17,7 @@ public class BloodProp extends AbstractProp{
     @Override
     public void func() {
         super.func();
-        HeroAircraft heroAircraft = HeroAircraft.GetInstance();
+        HeroAircraft heroAircraft = HeroAircraft.getInstance();
         int hp = heroAircraft.getHp();
         hp = hp + 10;
         int mhp = heroAircraft.getMaxHp();

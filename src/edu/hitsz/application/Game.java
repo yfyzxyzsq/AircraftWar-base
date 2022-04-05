@@ -3,12 +3,8 @@ package edu.hitsz.application;
 import edu.hitsz.aircraft.*;
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
-import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.factory.*;
 import edu.hitsz.prop.AbstractProp;
-import edu.hitsz.prop.BloodProp;
-import edu.hitsz.prop.BombProp;
-import edu.hitsz.prop.BulletProp;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
@@ -60,7 +56,7 @@ public class Game extends JPanel {
 
 
     public Game() {
-        heroAircraft = HeroAircraft.GetInstance();
+        heroAircraft = HeroAircraft.getInstance();
 
         enemyAircrafts = new LinkedList<>();
         heroBullets = new LinkedList<>();
@@ -100,7 +96,7 @@ public class Game extends JPanel {
                     Random rand = new Random();
                     int a = rand.nextInt(10);
                     if(a%2 == 0){
-                        PlaneFactory  planeFactory = new MobEnemyFactory();
+                        AbstractPlaneFactory planeFactory = new MobEnemyFactory();
                         AbstractAircraft aircraft = planeFactory.createAircraft();
                         enemyAircrafts.add(aircraft);
 //                        enemyAircrafts.add(new MobEnemy(
@@ -111,7 +107,7 @@ public class Game extends JPanel {
 //                                30
 //                        ));
                     }else{
-                        PlaneFactory planeFactory = new EliteEnemyFactory();
+                        AbstractPlaneFactory planeFactory = new EliteEnemyFactory();
                         AbstractAircraft aircraft = planeFactory.createAircraft();
                         enemyAircrafts.add(aircraft);
 //                        enemyAircrafts.add(new EliteEnemy(
@@ -267,21 +263,21 @@ public class Game extends JPanel {
                             int prop = ran.nextInt(3);
                             switch (prop){
                                 case 0:{
-                                    PropFactory  propFactory = new BloodPropFactory();
+                                    AbstractPropFactory propFactory = new BloodPropFactory();
                                     AbstractProp  abstractProp = propFactory.createProp(locationX,locationY);
                                     props.add(abstractProp);
                                     //props.add(new BloodProp(locationX,locationY,0,10));
                                     break;
                                 }
                                 case 1:{
-                                    PropFactory propFactory = new BombPropFactory();
+                                    AbstractPropFactory propFactory = new BombPropFactory();
                                     AbstractProp abstractProp = propFactory.createProp(locationX,locationY);
                                     props.add(abstractProp);
                                     //props.add(new BombProp(locationX,locationY,0,10));
                                     break;
                                 }
                                 case 2:{
-                                    PropFactory propFactory = new BulletPropFactory();
+                                    AbstractPropFactory propFactory = new BulletPropFactory();
                                     AbstractProp abstractProp = propFactory.createProp(locationX,locationY);
                                     props.add(abstractProp);
                                     //props.add(new BulletProp(locationX,locationY,0,10));
@@ -400,7 +396,7 @@ public class Game extends JPanel {
     */
     private void addBossAction(){
         if(flag >= 100){
-            PlaneFactory  planeFactory = new BossEnemyFactory();
+            AbstractPlaneFactory planeFactory = new BossEnemyFactory();
             AbstractAircraft aircraft = planeFactory.createAircraft();
             enemyAircrafts.add(aircraft);
             flag = 0;

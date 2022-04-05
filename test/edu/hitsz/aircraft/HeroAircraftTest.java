@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HeroAircraftTest extends AbstractFlyingObject {
 
-    HeroAircraft heroAircraft = HeroAircraft.GetInstance();
+    HeroAircraft heroAircraft = HeroAircraft.getInstance();
 
     @BeforeEach
     void setUp() {
