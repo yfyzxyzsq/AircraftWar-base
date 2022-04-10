@@ -4,6 +4,7 @@ import edu.hitsz.aircraft.AbstractAircraft;
 import edu.hitsz.aircraft.EliteEnemy;
 import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
+import edu.hitsz.weapon.Direct;
 
 public class EliteEnemyFactory extends AbstractPlaneFactory {
     @Override
@@ -13,7 +14,8 @@ public class EliteEnemyFactory extends AbstractPlaneFactory {
                 (int) (Math.random() * Main.WINDOW_HEIGHT*0.2)*1,
                 0,
                 10,
-                60);
+                60,
+                new Direct());
         return eliteEnemy;
     }
 }

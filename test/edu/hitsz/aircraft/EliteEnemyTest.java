@@ -4,6 +4,7 @@ import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
 import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.bullet.AbstractBullet;
+import edu.hitsz.weapon.Direct;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EliteEnemyTest extends AbstractFlyingObject {
     EliteEnemy eliteEnemy = new EliteEnemy(Main.WINDOW_WIDTH / 2,
             Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-            0, 0, 100);
+            0, 0, 100,new Direct());
     @BeforeEach
     void setUp() {
         System.out.println("**---Executed before each test method in this class---**");

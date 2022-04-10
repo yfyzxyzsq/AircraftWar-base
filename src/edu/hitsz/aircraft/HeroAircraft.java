@@ -4,6 +4,8 @@ import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.bullet.HeroBullet;
+import edu.hitsz.weapon.Direct;
+import edu.hitsz.weapon.ShootStrategy;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +20,7 @@ public class HeroAircraft extends AbstractAircraft {
     //单例模式
     private static HeroAircraft heroAircraft = new HeroAircraft(Main.WINDOW_WIDTH / 2,
             Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-            0, 0, 100);
+            0, 0, 100,new Direct());
 
     public static HeroAircraft getInstance(){
         return heroAircraft;
@@ -47,7 +49,7 @@ public class HeroAircraft extends AbstractAircraft {
     }
 
     //一次可最多发射子弹数量
-    private int maxShootNum = 3;
+    private int maxShootNum = 5;
 
     /**
      * 子弹伤害
@@ -73,8 +75,8 @@ public class HeroAircraft extends AbstractAircraft {
      * @param speedY 英雄机射出的子弹的基准速度（英雄机无特定速度）
      * @param hp    初始生命值
      */
-    private HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
-        super(locationX, locationY, speedX, speedY, hp);
+    private HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp, ShootStrategy shootStrategy) {
+        super(locationX, locationY, speedX, speedY, hp, shootStrategy);
         maxHp = hp;
     }
 
@@ -94,13 +96,7 @@ public class HeroAircraft extends AbstractAircraft {
         int y = this.getLocationY() + direction*2;
         int speedX = 0;
         int speedY = this.getSpeedY() + direction*5;
-        AbstractBullet abstractBullet;
-        for(int i=0; i<shootNum; i++){
-            // 子弹发射位置相对飞机位置向前偏移
-            // 多个子弹横向分散
-            abstractBullet = new HeroBullet(x + (i*2 - shootNum + 1)*10, y, speedX, speedY, power);
-            res.add(abstractBullet);
-        }
+        res = shootStrategy.shoot(x,y,speedX,speedY,this.power,shootNum);
         return res;
     }
 

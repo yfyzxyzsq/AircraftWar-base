@@ -2,6 +2,7 @@ package edu.hitsz.prop;
 
 
 import edu.hitsz.aircraft.HeroAircraft;
+import edu.hitsz.weapon.Scattering;
 
 /**
 * Description:bulletprop道具为英雄机加强火力
@@ -21,10 +22,13 @@ public class BulletProp extends AbstractProp{
         HeroAircraft heroAircraft = HeroAircraft.getInstance();
         int maxShootNum = heroAircraft.getMaxShootNum();
         int shootNum = heroAircraft.getShootNum();
+        if(shootNum > 1){
+            heroAircraft.setShootStrategy(new Scattering());
+        }
         if(shootNum < maxShootNum){
-            shootNum++;
+            shootNum += 2;
             heroAircraft.setShootNum(shootNum);
-        }else if(shootNum >= maxShootNum){
+        }else if(shootNum > maxShootNum){
             heroAircraft.setShootNum(1);
         }
     }

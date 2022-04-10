@@ -3,6 +3,7 @@ package edu.hitsz.aircraft;
 import edu.hitsz.application.Game;
 import edu.hitsz.application.Main;
 import edu.hitsz.bullet.AbstractBullet;
+import edu.hitsz.weapon.ShootStrategy;
 
 import java.util.LinkedList;
 import java.util.List;

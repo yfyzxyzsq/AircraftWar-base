@@ -99,24 +99,12 @@ public class Game extends JPanel {
                         AbstractPlaneFactory planeFactory = new MobEnemyFactory();
                         AbstractAircraft aircraft = planeFactory.createAircraft();
                         enemyAircrafts.add(aircraft);
-//                        enemyAircrafts.add(new MobEnemy(
-//                                (int) ( Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth()))*1,
-//                                (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2)*1,
-//                                0,
-//                                10,
-//                                30
-//                        ));
+
                     }else{
                         AbstractPlaneFactory planeFactory = new EliteEnemyFactory();
                         AbstractAircraft aircraft = planeFactory.createAircraft();
                         enemyAircrafts.add(aircraft);
-//                        enemyAircrafts.add(new EliteEnemy(
-//                                (int) ( Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth()))*1,
-//                                (int) (Math.random() * Main.WINDOW_HEIGHT*0.2)*1,
-//                                0,
-//                                10,
-//                                60
-//                        ));
+
                     }
 
 
@@ -255,37 +243,8 @@ public class Game extends JPanel {
                     if (enemyAircraft.notValid()) {
                         // TODO 获得分数，产生道具补给
                         if(enemyAircraft instanceof EliteEnemy){
-                            //在精英敌机坠毁位置产生道具
-
-                            int locationX = enemyAircraft.getLocationX();
-                            int locationY = enemyAircraft.getLocationY();
-                            Random ran = new Random();
-                            int prop = ran.nextInt(3);
-                            switch (prop){
-                                case 0:{
-                                    AbstractPropFactory propFactory = new BloodPropFactory();
-                                    AbstractProp  abstractProp = propFactory.createProp(locationX,locationY);
-                                    props.add(abstractProp);
-                                    //props.add(new BloodProp(locationX,locationY,0,10));
-                                    break;
-                                }
-                                case 1:{
-                                    AbstractPropFactory propFactory = new BombPropFactory();
-                                    AbstractProp abstractProp = propFactory.createProp(locationX,locationY);
-                                    props.add(abstractProp);
-                                    //props.add(new BombProp(locationX,locationY,0,10));
-                                    break;
-                                }
-                                case 2:{
-                                    AbstractPropFactory propFactory = new BulletPropFactory();
-                                    AbstractProp abstractProp = propFactory.createProp(locationX,locationY);
-                                    props.add(abstractProp);
-                                    //props.add(new BulletProp(locationX,locationY,0,10));
-                                    break;
-                                }
-                                default:;
-                            }
-
+                            EliteEnemy eliteEnemy = (EliteEnemy) enemyAircraft;
+                            props.add(eliteEnemy.createProp());
                         }
                         score += 10;
                         flag += 10;
