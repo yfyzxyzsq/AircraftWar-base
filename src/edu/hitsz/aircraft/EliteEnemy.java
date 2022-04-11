@@ -9,6 +9,7 @@ import edu.hitsz.factory.BloodPropFactory;
 import edu.hitsz.factory.BombPropFactory;
 import edu.hitsz.factory.BulletPropFactory;
 import edu.hitsz.prop.AbstractProp;
+import edu.hitsz.weapon.Direct;
 import edu.hitsz.weapon.ShootStrategy;
 
 import java.util.LinkedList;
@@ -22,13 +23,33 @@ import java.util.Random;
 */
 public class EliteEnemy extends AbstractAircraft{
 
-
+    //横向移动的标记,当为1时给定一个x方向上的初速度
+    int flagSpeedX = 1;
     /**攻击方式 */
+
+    public int getShootNum() {
+        return shootNum;
+    }
+
+    public void setShootNum(int shootNum) {
+        this.shootNum = shootNum;
+    }
 
     /**
      * 子弹一次发射数量
      */
     private int shootNum = 1;
+
+    public int getMaxShootNum() {
+        return maxShootNum;
+    }
+
+    public void setMaxShootNum(int maxShootNum) {
+        this.maxShootNum = maxShootNum;
+    }
+
+    private int maxShootNum = 1;
+
 
     /**
      * 子弹伤害
@@ -40,13 +61,24 @@ public class EliteEnemy extends AbstractAircraft{
      */
     private int direction = 1;
 
-    public EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp, ShootStrategy shootStrategy) {
-        super(locationX, locationY, speedX, speedY, hp, shootStrategy);
+    public EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
+        super(locationX, locationY, speedX, speedY, hp);
     }
 
     @Override
     public void forward() {
         super.forward();
+
+        if(flagSpeedX == 1){
+            flagSpeedX = 0;
+            int x = (Math.random() > 0.5?1:0);
+            if(x == 0){
+                speedX = 3;
+            }
+            else{
+                speedX = -3;
+            }
+        }
         if(locationY >= Main.WINDOW_HEIGHT){
             vanish();
         }
@@ -96,7 +128,9 @@ public class EliteEnemy extends AbstractAircraft{
         int y = this.getLocationY() + direction*2;
         int speedX = 0;
         int speedY = this.getSpeedY() + direction*5;
-        res = shootStrategy.shoot(x,y,speedX,speedY,power,shootNum);
+        this.setShootStrategy(new Direct(this.power,this.shootNum,this.maxShootNum,this.locationX,this.locationY,
+                    this.speedX,this.speedY,this.direction));
+        res = shootStrategy.shoot();
         return res;
     }
 }

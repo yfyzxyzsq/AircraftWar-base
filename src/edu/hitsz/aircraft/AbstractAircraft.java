@@ -26,12 +26,7 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
     //添加射击策略
     protected ShootStrategy shootStrategy;
 
-    public AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp,ShootStrategy shootStrategy) {
-        super(locationX, locationY, speedX, speedY);
-        this.hp = hp;
-        this.maxHp = hp;
-        this.shootStrategy = shootStrategy;
-    }
+
     public AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp){
         super(locationX, locationY, speedX, speedY);
         this.hp = hp;

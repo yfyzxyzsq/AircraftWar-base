@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EliteEnemyTest extends AbstractFlyingObject {
     EliteEnemy eliteEnemy = new EliteEnemy(Main.WINDOW_WIDTH / 2,
             Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-            0, 0, 100,new Direct());
+            0, 0, 100);
     @BeforeEach
     void setUp() {
         System.out.println("**---Executed before each test method in this class---**");

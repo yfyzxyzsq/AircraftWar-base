@@ -5,6 +5,7 @@ import edu.hitsz.application.Main;
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.bullet.HeroBullet;
 import edu.hitsz.weapon.Direct;
+import edu.hitsz.weapon.Scattering;
 import edu.hitsz.weapon.ShootStrategy;
 
 import java.util.LinkedList;
@@ -20,7 +21,7 @@ public class HeroAircraft extends AbstractAircraft {
     //单例模式
     private static HeroAircraft heroAircraft = new HeroAircraft(Main.WINDOW_WIDTH / 2,
             Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-            0, 0, 100,new Direct());
+            0, 0, 100);
 
     public static HeroAircraft getInstance(){
         return heroAircraft;
@@ -51,10 +52,18 @@ public class HeroAircraft extends AbstractAircraft {
     //一次可最多发射子弹数量
     private int maxShootNum = 5;
 
+    public int getPower() {
+        return power;
+    }
+
     /**
      * 子弹伤害
      */
     private int power = 30;
+
+    public int getDirection() {
+        return direction;
+    }
 
     /**
      * 子弹射击方向 (向上发射：1，向下发射：-1)
@@ -75,8 +84,8 @@ public class HeroAircraft extends AbstractAircraft {
      * @param speedY 英雄机射出的子弹的基准速度（英雄机无特定速度）
      * @param hp    初始生命值
      */
-    private HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp, ShootStrategy shootStrategy) {
-        super(locationX, locationY, speedX, speedY, hp, shootStrategy);
+    private HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
+        super(locationX, locationY, speedX, speedY, hp);
         maxHp = hp;
     }
 
@@ -96,7 +105,9 @@ public class HeroAircraft extends AbstractAircraft {
         int y = this.getLocationY() + direction*2;
         int speedX = 0;
         int speedY = this.getSpeedY() + direction*5;
-        res = shootStrategy.shoot(x,y,speedX,speedY,this.power,shootNum);
+        this.setShootStrategy(new Direct(this.getPower(),this.getShootNum(),this.getMaxShootNum(),this.getLocationX(),this.getLocationY(),this.getSpeedX(),this.getSpeedY(),this.direction));
+
+        res = shootStrategy.shoot();
         return res;
     }
 

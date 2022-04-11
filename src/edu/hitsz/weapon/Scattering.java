@@ -9,19 +9,24 @@ import java.util.List;
 
 import static java.lang.Math.pow;
 
-public class Scattering implements ShootStrategy{
+public class Scattering extends ShootStrategy{
+
+    public Scattering(int power, int shootNum, int maxShootNum, int locationX, int locationY, int speedX, int speedY, int direction) {
+        super(power, shootNum, maxShootNum, locationX, locationY, speedX, speedY, direction);
+    }
+
     @Override
-    public List<AbstractBullet> shoot(int locationX, int locationY, int speedX, int speedY, int power, int shootNum) {
+    public List<AbstractBullet> shoot() {
         List<AbstractBullet> res = new LinkedList<>();
-        AbstractBullet abstractBullet;
         int[] speedXs = {0,4,-4,8,-8};
+        power = power/shootNum+5;
         for(int i=0; i<shootNum; i++){
             // 子弹发射位置相对飞机位置向前偏移
             // 多个子弹横向分散
-            if(speedY < 0) {
-                abstractBullet = new HeroBullet(locationX + (i * 2 - shootNum + 1) * 10, locationY, speedXs[i], speedY, power);
+            if(direction > 0){
+                abstractBullet = new EnemyBullet(locationX,locationY+direction*2,speedXs[i],speedY+direction*5,power);
             }else{
-                abstractBullet = new EnemyBullet(locationX + (i * 2 - shootNum + 1) * 10, locationY, speedXs[i], 5+i*3, power);
+                abstractBullet = new HeroBullet(locationX,locationY+direction*2,speedXs[i],speedY+direction*5,power);
             }
             res.add(abstractBullet);
         }

@@ -15,8 +15,7 @@ public class BossEnemyFactory extends AbstractPlaneFactory {
                 (int) (Math.random() * Main.WINDOW_HEIGHT*0.2)*1,//纵向位置需修改
                 0,
                 0,
-                200,
-                new Scattering());
+                200);
         return bossEnemy;
     }
 }

@@ -14,8 +14,7 @@ public class EliteEnemyFactory extends AbstractPlaneFactory {
                 (int) (Math.random() * Main.WINDOW_HEIGHT*0.2)*1,
                 0,
                 10,
-                60,
-                new Direct());
+                60);
         return eliteEnemy;
     }
 }

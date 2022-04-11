@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface RecordDao
+class RecordDaoImpl
+class Record
+class Game
+
+RecordDao <|.. RecordDaoImpl
+RecordDao <..Game
+Record <|-- RecordDaoImpl
+
+interface RecordDao{
+    +{abstract}addRecord(Record):void
+    +{abstract}deleteRecord(Record):void
+    +{abstract}reviseRecord(Record):Record
+    +{abstract}getAllRecords():List<Record>
+    +{abstract}findByName():Record
+    +{abstract}findByRank():Record
+
+}
+
+class RecordDaoImpl{
+    -records:List<Record>
+    +RecordDaoImpl()
+    +addRecord(Record):void
+    +deleteRecord(Record):void
+    +reviseRecord(Record):Record
+    +getAllRecords():List<Record>
+    +findByName():Record
+    +findByRank():Record
+}
+
+class Record{
+    -name:String
+    -calendar:Calendar
+    -rank:int
+    -score:int
+    +getName():String
+    +setName(String)
+    +getDate():Date
+    +getScore():int
+    +getRank():int
+}
+
+@enduml
