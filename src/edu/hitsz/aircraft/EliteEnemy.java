@@ -2,15 +2,12 @@ package edu.hitsz.aircraft;
 
 import edu.hitsz.application.Main;
 import edu.hitsz.bullet.AbstractBullet;
-import edu.hitsz.bullet.EnemyBullet;
-import edu.hitsz.bullet.HeroBullet;
 import edu.hitsz.factory.AbstractPropFactory;
 import edu.hitsz.factory.BloodPropFactory;
 import edu.hitsz.factory.BombPropFactory;
 import edu.hitsz.factory.BulletPropFactory;
 import edu.hitsz.prop.AbstractProp;
 import edu.hitsz.weapon.Direct;
-import edu.hitsz.weapon.ShootStrategy;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -131,7 +128,7 @@ public class EliteEnemy extends AbstractAircraft{
         int speedY = this.getSpeedY() + direction*5;
         this.setShootStrategy(new Direct(this.power,this.shootNum,this.maxShootNum,this.locationX,this.locationY,
                     this.speedX,this.speedY,this.direction));
-        res = shootStrategy.shoot();
+        res = abstractShootStrategy.shoot();
         return res;
     }
 }

@@ -3,11 +3,9 @@ package edu.hitsz.aircraft;
 import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
 import edu.hitsz.bullet.AbstractBullet;
-import edu.hitsz.bullet.HeroBullet;
 import edu.hitsz.prop.AbstractProp;
 import edu.hitsz.weapon.Direct;
 import edu.hitsz.weapon.Scattering;
-import edu.hitsz.weapon.ShootStrategy;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -117,7 +115,7 @@ public class HeroAircraft extends AbstractAircraft {
             this.setShootStrategy(new Scattering(this.getPower(),this.getShootNum(),this.getMaxShootNum(),this.getLocationX(),this.getLocationY(),this.getSpeedX(),this.getSpeedY(),this.direction));
         }
 
-        res = shootStrategy.shoot();
+        res = abstractShootStrategy.shoot();
         return res;
     }
 

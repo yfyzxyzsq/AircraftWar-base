@@ -1,14 +1,12 @@
 package edu.hitsz.aircraft;
 
 import edu.hitsz.bullet.AbstractBullet;
-import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.factory.AbstractPropFactory;
 import edu.hitsz.factory.BloodPropFactory;
 import edu.hitsz.factory.BombPropFactory;
 import edu.hitsz.factory.BulletPropFactory;
 import edu.hitsz.prop.AbstractProp;
 import edu.hitsz.weapon.Scattering;
-import edu.hitsz.weapon.ShootStrategy;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -45,10 +43,10 @@ public class BossEnemy extends AbstractAircraft{
         List<AbstractBullet> res = new LinkedList<>();
         int x = this.getLocationX();
         int y = this.getLocationY() + (1)*2;
-        this.shootStrategy = new Scattering(this.power,this.shootNum,this.getMaxShootNum(),
+        this.abstractShootStrategy = new Scattering(this.power,this.shootNum,this.getMaxShootNum(),
                     this.locationX,this.locationY, this.speedX,this.speedY,this.direction);
 
-        res = shootStrategy.shoot();
+        res = abstractShootStrategy.shoot();
         return res;
     }
     //给定初始x方向上速度的标志

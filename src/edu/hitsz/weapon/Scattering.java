@@ -7,9 +7,7 @@ import edu.hitsz.bullet.HeroBullet;
 import java.util.LinkedList;
 import java.util.List;
 
-import static java.lang.Math.pow;
-
-public class Scattering extends ShootStrategy{
+public class Scattering extends AbstractShootStrategy {
 
     public Scattering(int power, int shootNum, int maxShootNum, int locationX, int locationY, int speedX, int speedY, int direction) {
         super(power, shootNum, maxShootNum, locationX, locationY, speedX, speedY, direction);

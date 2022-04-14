@@ -10,7 +10,7 @@ import java.util.List;
 * date: 2022/4/11 10:30
 * @author: fyd
 */
-public abstract class ShootStrategy {
+public abstract class AbstractShootStrategy {
     protected int power;
     protected int shootNum;
     protected int locationX;
@@ -23,7 +23,7 @@ public abstract class ShootStrategy {
     protected AbstractBullet abstractBullet;
 
 
-    public ShootStrategy(int power,int shootNum,int maxShootNum,int locationX,int locationY,int speedX,int speedY,int direction){
+    public AbstractShootStrategy(int power, int shootNum, int maxShootNum, int locationX, int locationY, int speedX, int speedY, int direction){
         this.power = power;
         this.shootNum = shootNum;
         this.maxShootNum = maxShootNum;
