@@ -4,15 +4,17 @@ import java.util.List;
 
 public interface RecordDao {
 
-    public void addRecord(Record record);
+    public void addRecord(MyRecord record);
 
     public void deleteRecord(int index);
 
-    public Record reviseRecord(Record record);
+    public MyRecord reviseRecord(MyRecord record);
 
-    public List<Record> getAllRecords();
+    public List<MyRecord> getAllRecords();
 
-    public Record findByName(String name);
+    public MyRecord findByName(String name);
 
-    public Record findByRank(int rank);
+    public MyRecord findByRank(int rank);
+
+    public void showRecords();
 }

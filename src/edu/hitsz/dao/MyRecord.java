@@ -1,8 +1,14 @@
 package edu.hitsz.dao;
 
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class Record {
+public class MyRecord implements Serializable {
+
+    private static final long serialVersionUID = 1987342583254420574L;
+
     private String name;
 
     private int score;
@@ -31,10 +37,17 @@ public class Record {
         this.name = name;
     }
 
-    public Record(String name, int score, int rank, Calendar calendar) {
+    public MyRecord(String name, int score, Calendar calendar) {
         this.name = name;
         this.score = score;
-        this.rank = rank;
         this.calendar = calendar;
+    }
+
+    @Override
+    public String toString() {
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = dateFormat.format(calendar.getTime());
+        return "name: "+this.name+"\tsocre: "+this.score+"\tdate: "+time;
     }
 }

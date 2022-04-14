@@ -4,6 +4,7 @@ import edu.hitsz.application.ImageManager;
 import edu.hitsz.application.Main;
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.bullet.HeroBullet;
+import edu.hitsz.prop.AbstractProp;
 import edu.hitsz.weapon.Direct;
 import edu.hitsz.weapon.Scattering;
 import edu.hitsz.weapon.ShootStrategy;
@@ -95,6 +96,11 @@ public class HeroAircraft extends AbstractAircraft {
     }
 
     @Override
+    public AbstractProp createProp() {
+        return null;
+    }
+
+    @Override
     /**
      * 通过射击产生子弹
      * @return 射击出的子弹List
@@ -105,7 +111,11 @@ public class HeroAircraft extends AbstractAircraft {
         int y = this.getLocationY() + direction*2;
         int speedX = 0;
         int speedY = this.getSpeedY() + direction*5;
-        this.setShootStrategy(new Direct(this.getPower(),this.getShootNum(),this.getMaxShootNum(),this.getLocationX(),this.getLocationY(),this.getSpeedX(),this.getSpeedY(),this.direction));
+        if(this.shootNum == 1){
+            this.setShootStrategy(new Direct(this.getPower(),this.getShootNum(),this.getMaxShootNum(),this.getLocationX(),this.getLocationY(),this.getSpeedX(),this.getSpeedY(),this.direction));
+        }else{
+            this.setShootStrategy(new Scattering(this.getPower(),this.getShootNum(),this.getMaxShootNum(),this.getLocationX(),this.getLocationY(),this.getSpeedX(),this.getSpeedY(),this.direction));
+        }
 
         res = shootStrategy.shoot();
         return res;

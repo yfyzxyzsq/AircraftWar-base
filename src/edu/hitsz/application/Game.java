@@ -3,6 +3,8 @@ package edu.hitsz.application;
 import edu.hitsz.aircraft.*;
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
+import edu.hitsz.dao.MyRecord;
+import edu.hitsz.dao.RecordDaoImpl;
 import edu.hitsz.factory.*;
 import edu.hitsz.prop.AbstractProp;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
@@ -10,6 +12,7 @@ import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
@@ -53,6 +56,9 @@ public class Game extends JPanel {
      */
     private int cycleDuration = 600;
     private int cycleTime = 0;
+
+    //添加RecordDaoImpl类对后期数据进行处理
+    private RecordDaoImpl recordDaoImpl;
 
 
     public Game() {
@@ -142,6 +148,7 @@ public class Game extends JPanel {
                 executorService.shutdown();
                 gameOverFlag = true;
                 System.out.println("Game Over!");
+                recordProcessing();
             }
 
         };
@@ -242,10 +249,13 @@ public class Game extends JPanel {
                     bullet.vanish();
                     if (enemyAircraft.notValid()) {
                         // TODO 获得分数，产生道具补给
-                        if(enemyAircraft instanceof EliteEnemy){
-                            EliteEnemy eliteEnemy = (EliteEnemy) enemyAircraft;
-                            props.add(eliteEnemy.createProp());
+//                        if(enemyAircraft instanceof EliteEnemy){
+//                            EliteEnemy eliteEnemy = (EliteEnemy) enemyAircraft;
+                        AbstractProp abstractProp = enemyAircraft.createProp();
+                        if(abstractProp != null){
+                            props.add(enemyAircraft.createProp());
                         }
+//                        }
                         score += 10;
                         flag += 10;
                     }
@@ -355,11 +365,27 @@ public class Game extends JPanel {
     */
     private void addBossAction(){
         if(flag >= 100){
+            for (AbstractAircraft enemyAircraft : enemyAircrafts) {
+                if(enemyAircraft instanceof BossEnemy){
+                    return ;
+                }
+            }
             AbstractPlaneFactory planeFactory = new BossEnemyFactory();
             AbstractAircraft aircraft = planeFactory.createAircraft();
             enemyAircrafts.add(aircraft);
             flag = 0;
         }
+    }
+    /**
+    * Description:游戏结束后添加数据的方法
+    * date: 2022/4/14 11:01
+    * @author: fyd
+    */
+    private void recordProcessing(){
+        MyRecord myRecord = new MyRecord("userName", score, Calendar.getInstance());
+        recordDaoImpl = new RecordDaoImpl(new File("src/records/record.dat"));
+        recordDaoImpl.addRecord(myRecord);
+        recordDaoImpl.showRecords();
     }
 
 }

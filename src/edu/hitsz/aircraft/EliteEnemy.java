@@ -90,6 +90,7 @@ public class EliteEnemy extends AbstractAircraft{
         return super.notValid();
     }
 
+    @Override
     public AbstractProp createProp(){
         AbstractProp abstractProp = null;
         if(super.notValid()){

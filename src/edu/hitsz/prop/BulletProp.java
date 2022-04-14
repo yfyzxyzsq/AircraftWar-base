@@ -29,8 +29,8 @@ public class BulletProp extends AbstractProp{
         }else if(shootNum > maxShootNum){
             heroAircraft.setShootNum(1);
         }
-        heroAircraft.setShootStrategy(new Scattering(heroAircraft.getPower(),heroAircraft.getShootNum(),heroAircraft.getMaxShootNum()
-                ,heroAircraft.getLocationX(),heroAircraft.getLocationY(),heroAircraft.getSpeedX(),heroAircraft.getSpeedY(),heroAircraft.getDirection()));
+//        heroAircraft.setShootStrategy(new Scattering(heroAircraft.getPower(),heroAircraft.getShootNum(),heroAircraft.getMaxShootNum()
+//                ,heroAircraft.getLocationX(),heroAircraft.getLocationY(),heroAircraft.getSpeedX(),heroAircraft.getSpeedY(),heroAircraft.getDirection()));
 
     }
 }

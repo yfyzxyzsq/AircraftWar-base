@@ -3,7 +3,7 @@
 
 abstract class AbstractAircraft
 
-interface ShootStrategy
+abstract classs ShootStrategy
 class Direct
 class Scattering
 
@@ -18,7 +18,7 @@ abstract class AbstractAircraft{
     shoot():List<BaseBullet>
 }
 
-interface ShootStrategy{
+abstract class ShootStrategy{
 
     shoot(int locationX,int intlocationY,int speedX,int speedY,int power,int shootNum):List<BaseBullet>
 }

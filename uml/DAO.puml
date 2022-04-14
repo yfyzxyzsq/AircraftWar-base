@@ -17,11 +17,13 @@ interface RecordDao{
     +{abstract}getAllRecords():List<Record>
     +{abstract}findByName():Record
     +{abstract}findByRank():Record
+    +{abstract}showRecords:void
 
 }
 
 class RecordDaoImpl{
     -records:List<Record>
+    -file:File
     +RecordDaoImpl()
     +addRecord(Record):void
     +deleteRecord(Record):void
@@ -29,6 +31,7 @@ class RecordDaoImpl{
     +getAllRecords():List<Record>
     +findByName():Record
     +findByRank():Record
+    +showRecords:void
 }
 
 class Record{

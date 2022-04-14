@@ -2,11 +2,17 @@ package edu.hitsz.aircraft;
 
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.bullet.EnemyBullet;
+import edu.hitsz.factory.AbstractPropFactory;
+import edu.hitsz.factory.BloodPropFactory;
+import edu.hitsz.factory.BombPropFactory;
+import edu.hitsz.factory.BulletPropFactory;
+import edu.hitsz.prop.AbstractProp;
 import edu.hitsz.weapon.Scattering;
 import edu.hitsz.weapon.ShootStrategy;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class BossEnemy extends AbstractAircraft{
     //一次发射子弹的数目
@@ -62,4 +68,36 @@ public class BossEnemy extends AbstractAircraft{
             }
         }
     }
+
+    @Override
+    public AbstractProp createProp(){
+        AbstractProp abstractProp = null;
+        if(super.notValid()){
+            Random ran = new Random();
+            int prop = ran.nextInt(3);
+            switch (prop){
+                case 0:{
+                    AbstractPropFactory propFactory = new BloodPropFactory();
+                    abstractProp = propFactory.createProp(locationX,locationY);
+                    //props.add(new BloodProp(locationX,locationY,0,10));
+                    break;
+                }
+                case 1:{
+                    AbstractPropFactory propFactory = new BombPropFactory();
+                    abstractProp = propFactory.createProp(locationX,locationY);
+                    //props.add(new BombProp(locationX,locationY,0,10));
+                    break;
+                }
+                case 2:{
+                    AbstractPropFactory propFactory = new BulletPropFactory();
+                    abstractProp = propFactory.createProp(locationX,locationY);
+                    //props.add(new BulletProp(locationX,locationY,0,10));
+                    break;
+                }
+                default:;
+            }
+        }
+        return abstractProp;
+    }
+
 }

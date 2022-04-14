@@ -2,6 +2,7 @@ package edu.hitsz.aircraft;
 
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
+import edu.hitsz.prop.AbstractProp;
 import edu.hitsz.weapon.ShootStrategy;
 
 import java.util.List;
@@ -59,6 +60,13 @@ public abstract class AbstractAircraft extends AbstractFlyingObject {
      *  非可射击对象空实现，返回null
      */
     public abstract List<AbstractBullet> shoot();
+
+    /**
+    * Description:产生道具的抽象方法，若不产生，则返回null
+    * date: 2022/4/14 14:55
+    * @author: fyd
+    */
+    public abstract AbstractProp createProp();
 
 }
 
