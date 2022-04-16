@@ -14,11 +14,50 @@ import java.util.List;
  * @author hitsz
  */
 public abstract class AbstractAircraft extends AbstractFlyingObject {
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+
     /**
      * 生命值
      */
+    protected int power;
+
+    public int getShootNum() {
+        return shootNum;
+    }
+
+    public void setShootNum(int shootNum) {
+        this.shootNum = shootNum;
+    }
+
+    public int getMaxShootNum() {
+        return maxShootNum;
+    }
+
+    public void setMaxShootNum(int maxShootNum) {
+        this.maxShootNum = maxShootNum;
+    }
+
+    protected int maxShootNum;
+
+    protected int shootNum;
     protected int maxHp;
     protected int hp;
+
+    protected int direction;
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
 
     public void setShootStrategy(AbstractShootStrategy abstractShootStrategy) {
         this.abstractShootStrategy = abstractShootStrategy;

@@ -17,6 +17,8 @@ public class MobEnemy extends AbstractAircraft {
 
     public MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
+        this.power = 0;
+        this.shootNum = 0;
     }
 
     @Override

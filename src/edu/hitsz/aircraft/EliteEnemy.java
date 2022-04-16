@@ -22,44 +22,19 @@ public class EliteEnemy extends AbstractAircraft{
 
     //横向移动的标记,当为1时给定一个x方向上的初速度
     int flagSpeedX = 1;
-    /**攻击方式 */
 
-    public int getShootNum() {
-        return shootNum;
-    }
-
-    public void setShootNum(int shootNum) {
-        this.shootNum = shootNum;
-    }
-
-    /**
-     * 子弹一次发射数量
-     */
-    private int shootNum = 1;
-
-    public int getMaxShootNum() {
-        return maxShootNum;
-    }
-
-    public void setMaxShootNum(int maxShootNum) {
-        this.maxShootNum = maxShootNum;
-    }
-
-    private int maxShootNum = 1;
-
-
-    /**
-     * 子弹伤害
-     */
-    private int power = 30;
 
     /**
      * 子弹射击方向 (向上发射：1，向下发射：-1)
      */
-    private int direction = 1;
+
 
     public EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
+        this.power = 25;
+        this.shootNum = 1;
+        this.setMaxShootNum(1);
+        this.setDirection(1);
     }
 
     @Override
@@ -126,8 +101,7 @@ public class EliteEnemy extends AbstractAircraft{
         int y = this.getLocationY() + direction*2;
         int speedX = 0;
         int speedY = this.getSpeedY() + direction*5;
-        this.setShootStrategy(new Direct(this.power,this.shootNum,this.maxShootNum,this.locationX,this.locationY,
-                    this.speedX,this.speedY,this.direction));
+        this.setShootStrategy(new Direct(this));
         res = abstractShootStrategy.shoot();
         return res;
     }

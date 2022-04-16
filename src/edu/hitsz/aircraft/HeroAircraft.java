@@ -27,47 +27,13 @@ public class HeroAircraft extends AbstractAircraft {
     }
     /**攻击方式 */
 
-    public int getShootNum() {
-        return shootNum;
-    }
-
-    public void setShootNum(int shootNum) {
-        this.shootNum = shootNum;
-    }
-
     /**
      * 子弹一次发射数量
      */
-    private int shootNum = 1;
-
-    public int getMaxShootNum() {
-        return maxShootNum;
-    }
-
-    public void setMaxShootNum(int maxShootNum) {
-        this.maxShootNum = maxShootNum;
-    }
-
-    //一次可最多发射子弹数量
-    private int maxShootNum = 5;
-
-    public int getPower() {
-        return power;
-    }
-
-    /**
-     * 子弹伤害
-     */
-    private int power = 30;
-
-    public int getDirection() {
-        return direction;
-    }
 
     /**
      * 子弹射击方向 (向上发射：1，向下发射：-1)
      */
-    private int direction = -1;
 
     //英雄机最大生命值
     private int maxHp;
@@ -86,6 +52,10 @@ public class HeroAircraft extends AbstractAircraft {
     private HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
         maxHp = hp;
+        this.power = 30;
+        this.shootNum = 1;
+        this.setMaxShootNum(5);
+        this.setDirection(-1);
     }
 
     @Override
@@ -110,9 +80,9 @@ public class HeroAircraft extends AbstractAircraft {
         int speedX = 0;
         int speedY = this.getSpeedY() + direction*5;
         if(this.shootNum == 1){
-            this.setShootStrategy(new Direct(this.getPower(),this.getShootNum(),this.getMaxShootNum(),this.getLocationX(),this.getLocationY(),this.getSpeedX(),this.getSpeedY(),this.direction));
+            this.setShootStrategy(new Direct(heroAircraft));
         }else{
-            this.setShootStrategy(new Scattering(this.getPower(),this.getShootNum(),this.getMaxShootNum(),this.getLocationX(),this.getLocationY(),this.getSpeedX(),this.getSpeedY(),this.direction));
+            this.setShootStrategy(new Scattering(heroAircraft));
         }
 
         res = abstractShootStrategy.shoot();

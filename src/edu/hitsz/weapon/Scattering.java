@@ -1,5 +1,6 @@
 package edu.hitsz.weapon;
 
+import edu.hitsz.aircraft.AbstractAircraft;
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.bullet.HeroBullet;
@@ -9,8 +10,8 @@ import java.util.List;
 
 public class Scattering extends AbstractShootStrategy {
 
-    public Scattering(int power, int shootNum, int maxShootNum, int locationX, int locationY, int speedX, int speedY, int direction) {
-        super(power, shootNum, maxShootNum, locationX, locationY, speedX, speedY, direction);
+    public Scattering(AbstractAircraft abstractAircraft) {
+        super(abstractAircraft);
     }
 
     @Override

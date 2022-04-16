@@ -1,5 +1,6 @@
 package edu.hitsz.weapon;
 
+import edu.hitsz.aircraft.AbstractAircraft;
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.bullet.HeroBullet;
@@ -8,8 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Direct extends AbstractShootStrategy {
-    public Direct(int power, int shootNum, int maxShootNum, int locationX, int locationY, int speedX, int speedY, int direction) {
-        super(power, shootNum, maxShootNum, locationX, locationY, speedX, speedY, direction);
+    public Direct(AbstractAircraft abstractAircraft) {
+        super(abstractAircraft);
     }
 
     @Override

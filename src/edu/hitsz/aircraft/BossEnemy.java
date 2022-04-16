@@ -13,29 +13,15 @@ import java.util.List;
 import java.util.Random;
 
 public class BossEnemy extends AbstractAircraft{
-    //一次发射子弹的数目
-    private int shootNum = 3;
-    //子弹的威力
-    private int power = 30;
 
-    private int direction = 1;
 
-    public int getDirection() {
-        return direction;
-    }
-
-    private int maxShootNum = 6;
-
-    public int getMaxShootNum() {
-        return maxShootNum;
-    }
-
-    public void setMaxShootNum(int maxShootNum) {
-        this.maxShootNum = maxShootNum;
-    }
 
     public BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp){
         super(locationX,locationY,speedX,speedY,hp);
+        this.power = 25;
+        this.shootNum = 3;
+        this.setMaxShootNum(6);
+        this.setDirection(1);
     }
     @Override
     public List<AbstractBullet> shoot() {
@@ -43,8 +29,7 @@ public class BossEnemy extends AbstractAircraft{
         List<AbstractBullet> res = new LinkedList<>();
         int x = this.getLocationX();
         int y = this.getLocationY() + (1)*2;
-        this.abstractShootStrategy = new Scattering(this.power,this.shootNum,this.getMaxShootNum(),
-                    this.locationX,this.locationY, this.speedX,this.speedY,this.direction);
+        this.abstractShootStrategy = new Scattering(this);
 
         res = abstractShootStrategy.shoot();
         return res;

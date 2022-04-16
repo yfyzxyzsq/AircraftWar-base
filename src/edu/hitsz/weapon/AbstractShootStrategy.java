@@ -1,5 +1,6 @@
 package edu.hitsz.weapon;
 
+import edu.hitsz.aircraft.AbstractAircraft;
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.bullet.HeroBullet;
@@ -23,15 +24,15 @@ public abstract class AbstractShootStrategy {
     protected AbstractBullet abstractBullet;
 
 
-    public AbstractShootStrategy(int power, int shootNum, int maxShootNum, int locationX, int locationY, int speedX, int speedY, int direction){
-        this.power = power;
-        this.shootNum = shootNum;
-        this.maxShootNum = maxShootNum;
-        this.locationX = locationX;
-        this.locationY = locationY;
-        this.speedX = speedX;
-        this.speedY = speedY;
-        this.direction = direction;
+    public AbstractShootStrategy(AbstractAircraft abstractAircraft){
+        this.power = abstractAircraft.getPower();
+        this.shootNum = abstractAircraft.getShootNum();
+        this.maxShootNum = abstractAircraft.getMaxShootNum();
+        this.locationX = abstractAircraft.getLocationX();
+        this.locationY = abstractAircraft.getLocationY();
+        this.speedX = abstractAircraft.getSpeedX();
+        this.speedY = abstractAircraft.getSpeedY();
+        this.direction = abstractAircraft.getDirection();
     }
 
 
