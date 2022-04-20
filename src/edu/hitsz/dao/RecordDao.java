@@ -17,4 +17,6 @@ public interface RecordDao {
     public MyRecord findByRank(int rank);
 
     public void showRecords();
+
+    public String[][] listToTable();
 }

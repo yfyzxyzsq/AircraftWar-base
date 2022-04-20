@@ -1,5 +1,6 @@
 package edu.hitsz.application;
 
+import edu.hitsz.End;
 import edu.hitsz.aircraft.*;
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
@@ -36,6 +37,16 @@ public class Game extends JPanel {
      */
     private int timeInterval = 40;
 
+    public BufferedImage getBackgroundImage() {
+        return BACKGROUND_IMAGE;
+    }
+
+    public void setBackgroundImage(BufferedImage backgroundImage) {
+        BACKGROUND_IMAGE = backgroundImage;
+    }
+
+    public BufferedImage BACKGROUND_IMAGE;
+
     private final HeroAircraft heroAircraft;
     private final List<AbstractAircraft> enemyAircrafts;
     private final List<AbstractBullet> heroBullets;
@@ -44,6 +55,14 @@ public class Game extends JPanel {
     private final List<AbstractProp> props;
 
     private int enemyMaxNumber = 5;
+
+    public boolean isGameOverFlag() {
+        return gameOverFlag;
+    }
+
+    public void setGameOverFlag(boolean gameOverFlag) {
+        this.gameOverFlag = gameOverFlag;
+    }
 
     private boolean gameOverFlag = false;
     private int score = 0;
@@ -60,6 +79,15 @@ public class Game extends JPanel {
     //添加RecordDaoImpl类对后期数据进行处理
     private RecordDaoImpl recordDaoImpl;
 
+    private String recordFile;
+
+    public String getRecordFile() {
+        return recordFile;
+    }
+
+    public void setRecordFile(String recordFile) {
+        this.recordFile = recordFile;
+    }
 
     public Game() {
         heroAircraft = HeroAircraft.getInstance();
@@ -311,8 +339,8 @@ public class Game extends JPanel {
         super.paint(g);
 
         // 绘制背景,图片滚动
-        g.drawImage(ImageManager.BACKGROUND_IMAGE, 0, this.backGroundTop - Main.WINDOW_HEIGHT, null);
-        g.drawImage(ImageManager.BACKGROUND_IMAGE, 0, this.backGroundTop, null);
+        g.drawImage(BACKGROUND_IMAGE, 0, this.backGroundTop - Main.WINDOW_HEIGHT, null);
+        g.drawImage(BACKGROUND_IMAGE, 0, this.backGroundTop, null);
         this.backGroundTop += 1;
         if (this.backGroundTop == Main.WINDOW_HEIGHT) {
             this.backGroundTop = 0;
@@ -382,8 +410,9 @@ public class Game extends JPanel {
     * @author: fyd
     */
     private void recordProcessing(){
-        MyRecord myRecord = new MyRecord("userName", score, Calendar.getInstance());
-        recordDaoImpl = new RecordDaoImpl(new File("src/records/record.dat"));
+        String userName = JOptionPane.showInputDialog("Please input your name.");
+        MyRecord myRecord = new MyRecord(userName, score, Calendar.getInstance());
+        recordDaoImpl = new RecordDaoImpl(new File(recordFile));
         recordDaoImpl.addRecord(myRecord);
         recordDaoImpl.showRecords();
     }

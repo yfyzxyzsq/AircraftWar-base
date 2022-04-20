@@ -3,6 +3,8 @@ package edu.hitsz.dao;
 import edu.hitsz.compare.ScoreComparator;
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -122,7 +124,7 @@ public class RecordDaoImpl implements RecordDao{
             e.printStackTrace();
         }
 
-
+        records = myRecords.size();
         Collections.sort(myRecords,new ScoreComparator());
 
         return myRecords;
@@ -136,5 +138,26 @@ public class RecordDaoImpl implements RecordDao{
     @Override
     public MyRecord findByRank(int rank) {
         return null;
+    }
+
+    @Override
+    public String[][] listToTable() {
+        recordList = getAllRecords();
+        String[][] recordTable;
+        recordTable = new String[records][4];
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        for (int i = 0;i < records;i++) {
+            MyRecord myRecord = recordList.get(i);
+            String name = myRecord.getName();
+            String rank = String.valueOf(i+1);
+            String score = String.valueOf(myRecord.getScore());
+            String date = dateFormat.format(myRecord.getCalendar().getTime());
+
+            recordTable[i][0] = rank;
+            recordTable[i][1] = name;
+            recordTable[i][2] = score;
+            recordTable[i][3] = date;
+        }
+        return recordTable;
     }
 }
