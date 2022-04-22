@@ -174,9 +174,10 @@ public class Game extends JPanel {
             if (heroAircraft.getHp() <= 0) {
                 // 游戏结束
                 executorService.shutdown();
-                gameOverFlag = true;
+
                 System.out.println("Game Over!");
                 recordProcessing();
+                gameOverFlag = true;
             }
 
         };

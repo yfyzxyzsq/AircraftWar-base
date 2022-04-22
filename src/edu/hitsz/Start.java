@@ -12,6 +12,16 @@ import java.io.File;
 
 
 public class Start {
+    private boolean startFlag = false;
+
+    public boolean isStartFlag() {
+        return startFlag;
+    }
+
+    public void setStartFlag(boolean startFlag) {
+        this.startFlag = startFlag;
+    }
+
     public JPanel getJpanel() {
         return Jpanel;
     }
@@ -37,8 +47,10 @@ public class Start {
             simpleButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+
                     mode = 1;
-                    startGame();
+                    startFlag = true;
+                    //startGame();
                 }
             });
 

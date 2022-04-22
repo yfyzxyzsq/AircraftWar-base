@@ -19,4 +19,6 @@ public interface RecordDao {
     public void showRecords();
 
     public String[][] listToTable();
+
+    public void reWrite();
 }

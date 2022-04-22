@@ -1,11 +1,14 @@
 package edu.hitsz;
 
+import edu.hitsz.dao.MyRecord;
 import edu.hitsz.dao.RecordDaoImpl;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.List;
 
 public class End {
     public JPanel getEndPanel() {
@@ -39,6 +42,7 @@ public class End {
                 int row = recordTable.getSelectedRow();
                 if(row != -1){
                     model.removeRow(row);
+                    recordDao.deleteRecord(row-1);
                 }
             }
         });

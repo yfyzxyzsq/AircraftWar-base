@@ -75,7 +75,9 @@ public class RecordDaoImpl implements RecordDao{
 
     @Override
     public void deleteRecord(int index) {
-
+        this.recordList = this.getAllRecords();
+        recordList.remove(index);
+        this.reWrite();
     }
 
     @Override
@@ -159,5 +161,30 @@ public class RecordDaoImpl implements RecordDao{
             recordTable[i][3] = date;
         }
         return recordTable;
+    }
+
+    @Override
+    public void reWrite() {
+        FileOutputStream fileOutputStream = null;
+        ObjectOutputStream objectOutputStream = null;
+
+        try {
+            fileOutputStream = new FileOutputStream(file);
+            objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            for(int i = 0;i < recordList.size();i++){
+                objectOutputStream.writeObject(recordList.get(i));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            if(objectOutputStream != null){
+                objectOutputStream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
