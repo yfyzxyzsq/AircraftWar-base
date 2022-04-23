@@ -47,26 +47,24 @@ public class Start {
             simpleButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
-                    mode = 1;
                     startFlag = true;
-                    //startGame();
+                    Main.setMode(0);
                 }
             });
 
             normalButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    mode = 2;
-                    startGame();
+                    startFlag = true;
+                    Main.setMode(1);
                 }
             });
 
             difficultButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    mode  = 3;
-                    startGame();
+                    startFlag = true;
+                    Main.setMode(2);
                 }
             });
 
@@ -105,36 +103,8 @@ public class Start {
         selectComboBox = new JComboBox();
     }
 
-    private void startGame() {
-        Game game;
-        if(mode == 1){
-            game = new SimpleGame();
-        }else if(mode == 2){
-            game = new NormalGame();
-        }else{
-            game = new DifficultGame();
-        }
-        Jframe.remove(Jpanel);
-        Jframe.add(game);
-        game.revalidate();
-        Jframe.repaint();
-        Jframe.setVisible(true);
-        game.action();
 
-        while(!game.isGameOverFlag()){
 
-        }
-        String path = game.getRecordFile();
-        RecordDaoImpl recordDao = new RecordDaoImpl(new File(path));
-        End end = new End(recordDao);
-        JPanel endPanel = end.getEndPanel();
-        Jframe.remove(game);
-        Jframe.add(endPanel);
-        endPanel.revalidate();
-        Jframe.repaint();
-        Jframe.setVisible(true);
-
-    }
 
 
     public void initUi(){

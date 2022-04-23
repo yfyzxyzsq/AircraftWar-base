@@ -25,6 +25,16 @@ import java.util.concurrent.*;
  */
 public class Game extends JPanel {
 
+    public boolean isNotAddRecord() {
+        return notAddRecord;
+    }
+
+    public void setNotAddRecord(boolean notAddRecord) {
+        this.notAddRecord = notAddRecord;
+    }
+
+    private boolean notAddRecord = true;
+
     private int backGroundTop = 0;
 
     /**
@@ -177,6 +187,7 @@ public class Game extends JPanel {
 
                 System.out.println("Game Over!");
                 recordProcessing();
+                notAddRecord = false;
                 gameOverFlag = true;
             }
 
@@ -412,10 +423,12 @@ public class Game extends JPanel {
     */
     private void recordProcessing(){
         String userName = JOptionPane.showInputDialog("Please input your name.");
-        MyRecord myRecord = new MyRecord(userName, score, Calendar.getInstance());
-        recordDaoImpl = new RecordDaoImpl(new File(recordFile));
-        recordDaoImpl.addRecord(myRecord);
-        recordDaoImpl.showRecords();
+        if(userName != ""){
+            MyRecord myRecord = new MyRecord(userName, score, Calendar.getInstance());
+            recordDaoImpl = new RecordDaoImpl(new File(recordFile));
+            recordDaoImpl.addRecord(myRecord);
+            recordDaoImpl.showRecords();
+        }
     }
 
 }

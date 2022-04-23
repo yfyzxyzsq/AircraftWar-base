@@ -7,8 +7,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
-import java.util.List;
 
 public class End {
     public JPanel getEndPanel() {
@@ -26,6 +24,21 @@ public class End {
     private JButton deleteButton;
 
     public End(RecordDaoImpl recordDao) {
+        DefaultTableModel model = showTable(recordDao);
+
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = recordTable.getSelectedRow();
+                if(row != -1){
+                    model.removeRow(row);
+                    recordDao.deleteRecord(row);
+                    showTable(recordDao);
+                }
+            }
+        });
+    }
+    public DefaultTableModel showTable(RecordDaoImpl recordDao){
         String[] columnName = {"Rank","Name","Score","Date"};
         String[][] tableData = recordDao.listToTable();
         DefaultTableModel model = new DefaultTableModel(tableData,columnName){
@@ -36,16 +49,7 @@ public class End {
         };
         recordTable.setModel(model);
         recordScrollPane.setViewportView(recordTable);
-        deleteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int row = recordTable.getSelectedRow();
-                if(row != -1){
-                    model.removeRow(row);
-                    recordDao.deleteRecord(row-1);
-                }
-            }
-        });
+        return model;
     }
 
     private void createUIComponents() {

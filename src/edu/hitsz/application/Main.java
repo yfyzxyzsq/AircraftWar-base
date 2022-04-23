@@ -10,6 +10,7 @@ import java.io.File;
 
 /**
  * 程序入口
+ *
  * @author hitsz
  */
 public class Main {
@@ -17,6 +18,16 @@ public class Main {
     public static final int WINDOW_WIDTH = 512;
     public static final int WINDOW_HEIGHT = 768;
     private static boolean musicFlag = false;
+
+    public static int getMode() {
+        return mode;
+    }
+
+    public static void setMode(int mode) {
+        Main.mode = mode;
+    }
+
+    private static int mode = 0;
 
     public static boolean isMusicFlag() {
         return musicFlag;
@@ -38,17 +49,15 @@ public class Main {
                 WINDOW_WIDTH, WINDOW_HEIGHT);
         Jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Start ss = new Start();
-        Game game = new NormalGame();
+        Game[] game = {new SimpleGame(),new NormalGame(), new DifficultGame()};
 
-
-
-
-        Thread thread1 = new Thread(()->{
-            synchronized (lock1){
+        Thread thread1 = new Thread(() -> {
+            synchronized (lock1) {
                 System.out.println("Aircraft War");
                 Jframe.add(ss.getJpanel());
                 Jframe.setVisible(true);
                 System.out.println("before first wait");
+                lock1.notify();
                 try {
                     lock1.wait();
                 } catch (InterruptedException e) {
@@ -56,11 +65,11 @@ public class Main {
                 }
                 System.out.println("next first wait,before second wait");
                 Jframe.remove(ss.getJpanel());
-                Jframe.add(game);
-                game.validate();
+                Jframe.add(game[Main.mode]);
+                game[Main.mode].validate();
                 Jframe.repaint();
                 Jframe.setVisible(true);
-                game.action();
+                game[Main.mode].action();
                 lock1.notify();
                 System.out.println("before second wait");
                 try {
@@ -69,9 +78,9 @@ public class Main {
                     e.printStackTrace();
                 }
                 System.out.println("after second wait");
-                RecordDaoImpl recordDao = new RecordDaoImpl(new File(game.getRecordFile()));
+                RecordDaoImpl recordDao = new RecordDaoImpl(new File(game[Main.mode].getRecordFile()));
                 End end = new End(recordDao);
-                Jframe.remove(game);
+                Jframe.remove(game[Main.mode]);
                 Jframe.add(end.getEndPanel());
                 end.getEndPanel().revalidate();
                 Jframe.repaint();
@@ -80,37 +89,43 @@ public class Main {
             }
         });
 
-        Thread thread2 = new Thread(()->{
-            synchronized (lock1){
-                while(!ss.isStartFlag()){
-                    try {
-                        Thread.sleep(1000);
+        thread1.start();
 
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                System.out.println("before first notify");
-                lock1.notify();
-                System.out.println("after first notify");
+        synchronized (lock1) {
+            lock1.notify();
+            try {
+                lock1.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            while (!ss.isStartFlag()) {
+                System.out.println("not begin!!!");
                 try {
-                    lock1.wait();
+                    Thread.sleep(1000);
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                while(!game.isGameOverFlag()){
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                System.out.println("before second notify");
-                lock1.notify();
             }
-        });
-        thread1.start();
-        thread2.start();
+            System.out.println("before first notify");
+            lock1.notify();
+            System.out.println("after first notify");
+            try {
+                lock1.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            while (!game[Main.mode].isGameOverFlag() || game[Main.mode].isNotAddRecord()) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            System.out.println("before second notify");
+            lock1.notify();
+        }
+
 
 
     }
