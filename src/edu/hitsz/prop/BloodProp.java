@@ -1,6 +1,9 @@
 package edu.hitsz.prop;
 
 import edu.hitsz.aircraft.HeroAircraft;
+import edu.hitsz.application.Main;
+import edu.hitsz.music.MusicThread;
+import edu.hitsz.music.MyMusic;
 
 /**
 * Description:此道具可为英雄机恢复hp,可叠加但不可超过上限
@@ -25,6 +28,5 @@ public class BloodProp extends AbstractProp{
             hp = mhp;
         }
         heroAircraft.setHp(hp);
-        System.out.println("heroAircraft hp up! hp:"+heroAircraft.getHp());
     }
 }

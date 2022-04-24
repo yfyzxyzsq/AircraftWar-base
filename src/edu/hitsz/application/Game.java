@@ -7,7 +7,10 @@ import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.dao.MyRecord;
 import edu.hitsz.dao.RecordDaoImpl;
 import edu.hitsz.factory.*;
+import edu.hitsz.music.MusicThread;
+import edu.hitsz.music.MyMusic;
 import edu.hitsz.prop.AbstractProp;
+import edu.hitsz.prop.BombProp;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
@@ -25,6 +28,26 @@ import java.util.concurrent.*;
  */
 public class Game extends JPanel {
 
+    private static boolean gameOver = false;
+
+    private boolean hasBossEnemy = false;
+
+    public boolean isHasBossEnemy() {
+        return hasBossEnemy;
+    }
+
+    public void setHasBossEnemy(boolean hasBossEnemy) {
+        this.hasBossEnemy = hasBossEnemy;
+    }
+
+    public static boolean isGameOver() {
+        return gameOver;
+    }
+
+    public static void setGameOver(boolean gameOver) {
+        Game.gameOver = gameOver;
+    }
+
     public boolean isNotAddRecord() {
         return notAddRecord;
     }
@@ -35,6 +58,7 @@ public class Game extends JPanel {
 
     private boolean notAddRecord = true;
 
+    private BossEnemy bossEnemy;
     private int backGroundTop = 0;
 
     /**
@@ -126,7 +150,7 @@ public class Game extends JPanel {
      * 游戏启动入口，执行游戏逻辑
      */
     public void action() {
-
+        MyMusic.playBgmMusic();
         // 定时任务：绘制、对象产生、碰撞判定、击毁及结束判定
         Runnable task = () -> {
 
@@ -157,7 +181,8 @@ public class Game extends JPanel {
                 shootAction();
             }
 
-
+            //判断boss机是否仍在场,被消灭后关掉其背景音乐
+            turnDownBossmusic();
 
             // 子弹移动
             bulletsMoveAction();
@@ -183,12 +208,16 @@ public class Game extends JPanel {
             // 游戏结束检查
             if (heroAircraft.getHp() <= 0) {
                 // 游戏结束
-                executorService.shutdown();
+                MyMusic.interruptAll();
+                MyMusic.getGameOverMusic().run();
 
+                executorService.shutdown();
+                Main.getThreadPoolExecutor().shutdown();
                 System.out.println("Game Over!");
                 recordProcessing();
                 notAddRecord = false;
                 gameOverFlag = true;
+                gameOver = true;
             }
 
         };
@@ -229,6 +258,7 @@ public class Game extends JPanel {
         }
         // 英雄射击
         heroBullets.addAll(heroAircraft.shoot());
+        MyMusic.playBulletMusic();
     }
 
     private void bulletsMoveAction() {
@@ -267,6 +297,7 @@ public class Game extends JPanel {
             }
 
             if(heroAircraft.crash(ebullet) || ebullet.crash(heroAircraft)){
+                MyMusic.playBulletHitMusic();
                 heroAircraft.decreaseHp(ebullet.getPower());
                 ebullet.vanish();
             }
@@ -285,6 +316,7 @@ public class Game extends JPanel {
                 if (enemyAircraft.crash(bullet)) {
                     // 敌机撞击到英雄机子弹
                     // 敌机损失一定生命值
+                    MyMusic.playBulletHitMusic();
                     enemyAircraft.decreaseHp(bullet.getPower());
                     bullet.vanish();
                     if (enemyAircraft.notValid()) {
@@ -314,6 +346,11 @@ public class Game extends JPanel {
                 continue;
             }
             if(abstractProp.crash(heroAircraft) || heroAircraft.crash(abstractProp)){
+                if(abstractProp instanceof BombProp){
+                    MyMusic.playBombMusic();
+                }else{
+                    MyMusic.playGetSupplyMusic();
+                }
                 abstractProp.func();
                 abstractProp.vanish();
             }
@@ -410,8 +447,16 @@ public class Game extends JPanel {
                     return ;
                 }
             }
+            if(MyMusic.getBossBgmMusic() != null){
+                Main.getThreadPoolExecutor().remove(MyMusic.getBgmMusic());
+            }
+            MyMusic.setBossBgmMusic(new MusicThread(MyMusic.BOSS_BGM,true));
+            Main.getThreadPoolExecutor().execute(MyMusic.getBossBgmMusic());
+            hasBossEnemy = true;
+            MyMusic.getBgmMusic().setInterrupted(true);
             AbstractPlaneFactory planeFactory = new BossEnemyFactory();
             AbstractAircraft aircraft = planeFactory.createAircraft();
+            bossEnemy = (BossEnemy) aircraft;
             enemyAircrafts.add(aircraft);
             flag = 0;
         }
@@ -428,6 +473,18 @@ public class Game extends JPanel {
             recordDaoImpl = new RecordDaoImpl(new File(recordFile));
             recordDaoImpl.addRecord(myRecord);
             recordDaoImpl.showRecords();
+        }
+    }
+
+    public void turnDownBossmusic(){
+        if(hasBossEnemy){
+            if(bossEnemy.notValid()){
+                hasBossEnemy = false;
+                MyMusic.getBossBgmMusic().setInterrupted(true);
+                Main.getThreadPoolExecutor().remove(MyMusic.getBgmMusic());
+                MyMusic.setBgmMusic(new MusicThread(MyMusic.BACKGROUND_MUSIC,true));
+                Main.getThreadPoolExecutor().execute(MyMusic.getBgmMusic());
+            }
         }
     }
 

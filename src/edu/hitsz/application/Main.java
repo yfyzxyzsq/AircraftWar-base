@@ -7,6 +7,9 @@ import edu.hitsz.dao.RecordDaoImpl;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 程序入口
@@ -18,6 +21,17 @@ public class Main {
     public static final int WINDOW_WIDTH = 512;
     public static final int WINDOW_HEIGHT = 768;
     private static boolean musicFlag = false;
+
+    public static ThreadPoolExecutor getThreadPoolExecutor() {
+        return threadPoolExecutor;
+    }
+
+    public static void setThreadPoolExecutor(ThreadPoolExecutor threadPoolExecutor) {
+        Main.threadPoolExecutor = threadPoolExecutor;
+    }
+
+    private static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(15,25,1L,TimeUnit.SECONDS,
+                new ArrayBlockingQueue<>(50),new ThreadPoolExecutor.CallerRunsPolicy());
 
     public static int getMode() {
         return mode;

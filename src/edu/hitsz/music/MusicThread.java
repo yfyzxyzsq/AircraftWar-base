@@ -1,5 +1,8 @@
 package edu.hitsz.music;
 
+import edu.hitsz.aircraft.HeroAircraft;
+import edu.hitsz.application.Game;
+
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
@@ -17,14 +20,22 @@ import javax.sound.sampled.DataLine.Info;
 
 public class MusicThread extends Thread {
 
+    private boolean isInterrupted = false;
+
+    public void setInterrupted(boolean interrupted) {
+        isInterrupted = interrupted;
+    }
 
     //音频文件名
     private String filename;
     private AudioFormat audioFormat;
     private byte[] samples;
+    private boolean isLoop;
+    private HeroAircraft heroAircraft = HeroAircraft.getInstance();
 
-    public MusicThread(String filename) {
+    public MusicThread(String filename, boolean isLoop) {
         //初始化filename
+        this.isLoop = isLoop;
         this.filename = filename;
         reverseMusic();
     }
@@ -75,7 +86,7 @@ public class MusicThread extends Thread {
         dataLine.start();
         try {
             int numBytesRead = 0;
-            while (numBytesRead != -1) {
+            while (numBytesRead != -1 && !Game.isGameOver() && !isInterrupted) {
                 //从音频流读取指定的最大数量的数据字节，并将其放入缓冲区中
                 numBytesRead =
                         source.read(buffer, 0, buffer.length);
@@ -96,7 +107,9 @@ public class MusicThread extends Thread {
 
     @Override
     public void run() {
-        InputStream stream = new ByteArrayInputStream(samples);
-        play(stream);
+        do{
+            InputStream stream = new ByteArrayInputStream(samples);
+            play(stream);
+        }while(isLoop);
     }
 }

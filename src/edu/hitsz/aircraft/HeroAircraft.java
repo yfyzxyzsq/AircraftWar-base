@@ -20,7 +20,7 @@ public class HeroAircraft extends AbstractAircraft {
     //单例模式
     private static HeroAircraft heroAircraft = new HeroAircraft(Main.WINDOW_WIDTH / 2,
             Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-            0, 0, 100);
+            0, 0, 300);
 
     public static HeroAircraft getInstance(){
         return heroAircraft;
@@ -52,7 +52,7 @@ public class HeroAircraft extends AbstractAircraft {
     private HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
         maxHp = hp;
-        this.power = 30;
+        this.power = 60;
         this.shootNum = 1;
         this.setMaxShootNum(5);
         this.setDirection(-1);

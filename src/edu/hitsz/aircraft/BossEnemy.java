@@ -62,19 +62,16 @@ public class BossEnemy extends AbstractAircraft{
                 case 0:{
                     AbstractPropFactory propFactory = new BloodPropFactory();
                     abstractProp = propFactory.createProp(locationX,locationY);
-                    //props.add(new BloodProp(locationX,locationY,0,10));
                     break;
                 }
                 case 1:{
                     AbstractPropFactory propFactory = new BombPropFactory();
                     abstractProp = propFactory.createProp(locationX,locationY);
-                    //props.add(new BombProp(locationX,locationY,0,10));
                     break;
                 }
                 case 2:{
                     AbstractPropFactory propFactory = new BulletPropFactory();
                     abstractProp = propFactory.createProp(locationX,locationY);
-                    //props.add(new BulletProp(locationX,locationY,0,10));
                     break;
                 }
                 default:;

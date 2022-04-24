@@ -10,22 +10,24 @@
     <children>
       <component id="5901" class="javax.swing.JTextArea" binding="titleTextArea" custom-create="true">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="30"/>
           </grid>
         </constraints>
         <properties>
+          <font name="Consolas" size="20"/>
           <text value="飞机大战排行榜"/>
         </properties>
       </component>
-      <scrollpane id="9d076" binding="recordScrollPane" custom-create="true">
+      <scrollpane id="9d076" binding="recordScrollPane">
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <font size="18"/>
           <horizontalScrollBarPolicy value="30"/>
         </properties>
-        <border type="none"/>
+        <border type="none" title="飞机大战排行榜"/>
         <children>
           <component id="e5930" class="javax.swing.JTable" binding="recordTable">
             <constraints/>
@@ -35,7 +37,7 @@
       </scrollpane>
       <component id="f6b86" class="javax.swing.JButton" binding="deleteButton" custom-create="true">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Delete"/>
